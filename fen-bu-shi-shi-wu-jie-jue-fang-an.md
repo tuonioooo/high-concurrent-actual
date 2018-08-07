@@ -1,8 +1,10 @@
 # 分布式事务解决方案
 
-参考
 
-[https://www.cnblogs.com/savorboard/p/distributed-system-transaction-consistency.html](https://www.cnblogs.com/savorboard/p/distributed-system-transaction-consistency.html) 
+
+## 参考
+
+[https://www.cnblogs.com/savorboard/p/distributed-system-transaction-consistency.html](https://www.cnblogs.com/savorboard/p/distributed-system-transaction-consistency.html)
 
 [https://www.cnblogs.com/zengkefu/p/5742617.html](https://www.cnblogs.com/zengkefu/p/5742617.html)
 
