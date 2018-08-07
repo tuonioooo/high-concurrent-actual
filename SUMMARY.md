@@ -13,4 +13,8 @@
   * [TCC解决方案](fen-bu-shi-shi-wu-jie-jue-fang-an/tccjie-jue-fang-an.md)
   * [本地消息表解决方案](fen-bu-shi-shi-wu-jie-jue-fang-an/ben-di-xiao-xi-biao-jie-jue-fang-an.md)
   * [SpringBoot实现分布式事务](fen-bu-shi-shi-wu-jie-jue-fang-an/springbootshi-xian-fen-bu-shi-shi-wu.md)
+* [分布式系统校验解决方案](fen-bu-shi-xi-tong-xiao-yan-jie-jue-fang-an.md)
+  * 分布式Session
+  * [JWT方式](fen-bu-shi-xi-tong-xiao-yan-jie-jue-fang-an/jwtfang-shi.md)
+  * 单点登录框架
 
