@@ -10,6 +10,6 @@
 * [分布式事务解决方案](fen-bu-shi-shi-wu-jie-jue-fang-an.md)
   * [基于X/A协议相关的解决方案](fen-bu-shi-shi-wu-jie-jue-fang-an/ji-yu-x-a-xie-yi-xiang-guan-de-jie-jue-fang-an.md)
   * [消息队列解决方案](fen-bu-shi-shi-wu-jie-jue-fang-an/xiao-xi-dui-lie-jie-jue-fang-an.md)
-  * TCC解决方案
+  * [TCC解决方案](fen-bu-shi-shi-wu-jie-jue-fang-an/tccjie-jue-fang-an.md)
   * [本地消息表解决方案](fen-bu-shi-shi-wu-jie-jue-fang-an/ben-di-xiao-xi-biao-jie-jue-fang-an.md)
 
