@@ -7,4 +7,9 @@
   * [基于redis（二）](fen-bu-shi-suo-shi-xian-fang-an/ji-yu-redis-ff08-er-ff09.md)
   * [基于zookeeper](fen-bu-shi-suo-shi-xian-fang-an/ji-yu-zookeeper.md)
   * [分布式锁的应用场景](fen-bu-shi-suo-shi-xian-fang-an/fen-bu-shi-suo-de-ying-yong-chang-jing.md)
+* [分布式事务解决方案](fen-bu-shi-shi-wu-jie-jue-fang-an.md)
+  * [基于X/A协议相关的解决方案](fen-bu-shi-shi-wu-jie-jue-fang-an/ji-yu-x-a-xie-yi-xiang-guan-de-jie-jue-fang-an.md)
+  * 消息队列解决方案
+  * TCC解决方案
+  * 本地消息表解决方案
 
