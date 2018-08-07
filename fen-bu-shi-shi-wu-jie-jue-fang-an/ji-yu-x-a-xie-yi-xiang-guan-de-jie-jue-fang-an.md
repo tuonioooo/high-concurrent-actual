@@ -58,8 +58,6 @@ XA是一个分布式事务协议，由Tuxedo提出。XA中大致分为两部分�
 
 ![](https://images2015.cnblogs.com/blog/99941/201608/99941-20160805193226856-864732787.png)
 
-
-
 1、A系统向消息中间件发送一条预备消息  
 2、消息中间件保存预备消息并返回成功  
 3、A执行本地事务  
@@ -76,17 +74,17 @@ XA是一个分布式事务协议，由Tuxedo提出。XA中大致分为两部分�
 
 ![](https://images2015.cnblogs.com/blog/99941/201608/99941-20160805193239215-1686697120.png)
 
-
-
 虽然上面的方案能够完成A和B的操作，但是A和B并不是严格一致的，而是最终一致的，我们在这里牺牲了一致性，换来了性能的大幅度提升。当然，这种玩法也是有风险的，如果B一直执行不成功，那么一致性会被破坏，具体要不要玩，还是得看业务能够承担多少风险。
 
 ### TCC编程模式
 
 所谓的TCC编程模式，也是两阶段提交的一个变种。TCC提供了一个编程框架，将整个业务逻辑分为三块：Try、Confirm和Cancel三个操作。以在线下单为例，Try阶段会去扣库存，Confirm阶段则是去更新订单状态，如果更新订单失败，则进入Cancel阶段，会去恢复库存。总之，TCC就是通过代码人为实现了两阶段提交，不同的业务场景所写的代码都不一样，复杂度也不一样，因此，这种模式并不能很好地被复用。
 
-
-
 ## 参考
 
 [https://www.cnblogs.com/zengkefu/p/5742617.html](https://www.cnblogs.com/zengkefu/p/5742617.html)
+
+[https://blog.csdn.net/qcloudcommunity/article/details/77802999](https://blog.csdn.net/qcloudcommunity/article/details/77802999) 
+
+[http://www.xue63.com/zixunall/4905/49052348.html](http://www.xue63.com/zixunall/4905/49052348.html)
 
