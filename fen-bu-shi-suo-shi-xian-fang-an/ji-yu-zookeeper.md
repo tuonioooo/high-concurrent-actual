@@ -21,7 +21,7 @@ ZooKeeper的架构通过冗余服务实现高可用性。因此，如果第一�
 * 通过实现Watch接口，实现process\(WatchedEvent event\)方法来实施监控，使CountDownLatch来完成监控，在等待锁的时候使用CountDownLatch来计数，等到后进行countDown，停止等待，继续运行。
 * 以下整体流程基本与上述描述流程一致，只是在监听的时候使用的是CountDownLatch来监听前一个节点。
 
-分布式锁
+**分布式锁**
 
 ```
 import org.apache.zookeeper.*;
@@ -203,5 +203,43 @@ public class DistributedLock implements Lock, Watcher {
 }
 ```
 
+**测试代码**
 
+```
+public class Test {
+    static int n = 500;
+
+    public static void secskill() {
+        System.out.println(--n);
+    }
+
+    public static void main(String[] args) {
+        
+        Runnable runnable = new Runnable() {
+            public void run() {
+                DistributedLock lock = null;
+                try {
+                    lock = new DistributedLock("127.0.0.1:2181", "test1");
+                    lock.lock();
+                    secskill();
+                    System.out.println(Thread.currentThread().getName() + "正在运行");
+                } finally {
+                    if (lock != null) {
+                        lock.unlock();
+                    }
+                }
+            }
+        };
+
+        for (int i = 0; i < 10; i++) {
+            Thread t = new Thread(runnable);
+            t.start();
+        }
+    }
+}
+```
+
+**执行结果**
+
+![](/assets/import-zookeeper-01.png)
 
