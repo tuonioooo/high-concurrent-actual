@@ -1,4 +1,4 @@
-# 基于redis
+# 基于redis（一）
 
 **如何用Redis实现分布式锁？**
 
@@ -94,7 +94,7 @@ set（key，threadId ，30，NX）
 
 if（threadId .equals\(redisClient.get\(key\)\)）{
 
-**del\(key\)      
+**del\(key\)        
 **
 
 **}**
