@@ -20,4 +20,5 @@
 * [互联网高可用架构分析](hu-lian-wang-gao-ke-yong-jia-gou-fen-xi.md)
   * [负载均衡技术分析](hu-lian-wang-gao-ke-yong-jia-gou-fen-xi/fu-zai-jun-heng-ji-zhu-fen-xi.md)
   * [通过Keepalived实现中间件的高可用](hu-lian-wang-gao-ke-yong-jia-gou-fen-xi/tong-guo-keepalived-shi-xian-zhong-jian-jian-de-gao-ke-yong.md)
+* [分布式订单流水号生成策略](fen-bu-shi-ding-dan-liu-shui-hao-sheng-cheng-ce-lve.md)
 
