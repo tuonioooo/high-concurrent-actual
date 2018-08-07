@@ -14,7 +14,7 @@
   * [本地消息表解决方案](fen-bu-shi-shi-wu-jie-jue-fang-an/ben-di-xiao-xi-biao-jie-jue-fang-an.md)
   * [SpringBoot实现分布式事务](fen-bu-shi-shi-wu-jie-jue-fang-an/springbootshi-xian-fen-bu-shi-shi-wu.md)
 * [分布式系统校验解决方案](fen-bu-shi-xi-tong-xiao-yan-jie-jue-fang-an.md)
-  * 分布式Session
+  * [分布式Session](fen-bu-shi-xi-tong-xiao-yan-jie-jue-fang-an/fen-bu-shi-session.md)
   * [JWT方式](fen-bu-shi-xi-tong-xiao-yan-jie-jue-fang-an/jwtfang-shi.md)
-  * 单点登录框架
+  * [单点登录框架](fen-bu-shi-xi-tong-xiao-yan-jie-jue-fang-an/dan-dian-deng-lu-kuang-jia.md)
 
