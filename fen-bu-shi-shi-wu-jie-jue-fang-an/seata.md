@@ -240,6 +240,8 @@ public interface OrderMapper {
 
 ![](../.gitbook/assets/20200222191831706.png)
 
+ **【总结】：**目前主流分布式事务解决方案有很多，如RabbitMQ最终一致性，RocketMQ事务消息，LCN假关闭，阿里Seata，可以根据业务合理选择解决方案，毕竟先把技术Get到，项目技术选型也会多一种选择 ~
+
 
 
 \*\*\*\*
