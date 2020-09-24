@@ -13,7 +13,7 @@
 
 头信息指定了该JWT使用的签名算法:
 
-```
+```text
 header = '{"alg":"HS256","typ":"JWT"}'
 ```
 
@@ -21,22 +21,21 @@ header = '{"alg":"HS256","typ":"JWT"}'
 
 消息体包含了JWT的意图：
 
-```
+```text
 payload = '{"loggedInAs":"admin","iat":1422779638}'//iat表示令牌生成的时间
 ```
 
 未签名的令牌由`base64url`编码的头信息和消息体拼接而成（使用"."分隔），签名则通过私有的key计算而成：
 
-```
+```text
 key = 'secretkey'  
 unsignedToken = encodeBase64(header) + '.' + encodeBase64(payload)  
-signature = HMAC-SHA256(key, unsignedToken) 
-
+signature = HMAC-SHA256(key, unsignedToken)
 ```
 
 最后在未签名的令牌尾部拼接上`base64url`编码的签名（同样使用"."分隔）就是JWT了：
 
-```
+```text
 token = encodeBase64(header) + '.' + encodeBase64(payload) + '.' + encodeBase64(signature) 
 
 # token看起来像这样: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI
@@ -44,9 +43,8 @@ token = encodeBase64(header) + '.' + encodeBase64(payload) + '.' + encodeBase64(
 
 JWT常常被用作保护服务端的资源（resource），客户端通常将JWT通过HTTP的`Authorization`header发送给服务端，服务端使用自己保存的key计算、验证签名以判断该JWT是否可信：
 
-```
+```text
 Authorization: Bearer eyJhbGci*...<snip>...*yu5CSpyHI
-
 ```
 
 ### 那怎么就误用了呢
@@ -65,34 +63,29 @@ Authorization: Bearer eyJhbGci*...<snip>...*yu5CSpyHI
 
 假设你经常使用bank.example.com进行网上转账，在你提交转账请求时bank.example.com的前端代码会提交一个HTTP请求:
 
-```
+```text
 POST /transfer HTTP/1.1
 Host: bank.example.com
 cookie: JsessionID=randomid; Domain=bank.example.com; Secure; HttpOnly
 Content-Type: application/x-www-form-urlencoded
 
 amount=100.00&routingNumber=1234&account=9876
-
-
 ```
 
 你图方便没有登出bank.example.com，随后又访问了一个恶意网站，该网站的HTML页面包含了这样一个表单：
 
-```
+```text
 <form action="https://bank.example.com/transfer" method="post">
     <input type="hidden" name="amount" value="100.00"/>
     <input type="hidden" name="routingNumber" value="evilsRoutingNumber"/>
     <input type="hidden" name="account" value="evilsAccountNumber"/>
     <input type="submit" value="点击就送!"/>
 </form>
-
 ```
 
 你被“点击就送”吸引了，当你点了提交按钮时你已经向攻击者的账号转了100元。现实中的攻击可能更隐蔽，恶意网站的页面可能使用Javascript自动完成提交。尽管恶意网站没有办法盗取你的session cookie（从而假冒你的身份），但恶意网站向bank.example.com发起请求时，你的cookie会被自动发送过去。
 
 因此，有些人认为前端代码将JWT通过HTTP header发送给服务端（而不是通过cookie自动发送）可以有效防护CSRF。在这种方案中，服务端代码在完成认证后，会在HTTP response的header中返回JWT，前端代码将该JWT存放到Local Storage里待用，或是服务端直接在cookie中保存HttpOnly=false的JWT。
-
-
 
 在向服务端发起请求时，用Javascript取出JWT（否则前端Javascript代码无权从cookie中获取数据），再通过header发送回服务端通过认证。由于恶意网站的代码无法获取bank.example.com的cookie/Local Storage中的JWT，这种方式确实能防护CSRF，但将JWT保存在cookie/Local Storage中可能会给另一种攻击可乘之机，我们一会详细讨论它：跨站脚本攻击——XSS。
 
@@ -103,11 +96,8 @@ amount=100.00&routingNumber=1234&account=9876
 除了以上这些误解外，使用JWT管理session还有如下缺点：
 
 1. **更多的空间占用。**如果将原存在服务端session中的各类信息都放在JWT中保存在客户端，可能造成JWT占用的空间变大，需要考虑cookie的空间限制等因素，如果放在Local Storage，则可能受到XSS攻击。
-
 2. **更不安全。**这里是特指将JWT保存在Local Storage中，然后使用Javascript取出后作为HTTP header发送给服务端的方案。在Local Storage中保存敏感信息并不安全，容易受到跨站脚本攻击，跨站脚本（Cross site script，简称xss）是一种“HTML注入”，由于攻击的脚本多数时候是跨域的，所以称之为“跨域脚本”，这些脚本代码可以盗取cookie或是Local Storage中的数据。可以从这篇文章查看[XSS攻击](https://link.jianshu.com?t=HTTP://www.cnblogs.com/luminji/archive/2012/05/22/2507185.html)的原理解释。
-
 3. **无法作废已颁布的令牌。**所有的认证信息都在JWT中，由于在服务端没有状态，即使你知道了某个JWT被盗取了，你也没有办法将其作废。在JWT过期之前（你绝对应该设置过期时间），你无能为力。
-
 4. **不易应对数据过期。**与上一条类似，JWT有点类似缓存，由于无法作废已颁布的令牌，在其过期前，你只能忍受“过期”的数据。
 
 看到这里后，你可能发现，将JWT保存在Local Storage中，并使用JWT来管理session并不是一个好主意，那有没有可能“正确”地使用JWT来管理session呢？比如：
@@ -144,12 +134,9 @@ amount=100.00&routingNumber=1234&account=9876
 1. 在Web应用中，别再把JWT当做session使用，绝大多数情况下，传统的cookie-session机制工作得更好
 2. JWT适合一次性的命令认证，颁发一个有效期极短的JWT，即使暴露了危险也很小，由于每次操作都会生成新的JWT，因此也没必要保存JWT，真正实现无状态。
 
-##  参考
+## 参考
 
-[https://www.jianshu.com/p/af8360b83a9f](https://www.jianshu.com/p/af8360b83a9f) 
+[https://www.jianshu.com/p/af8360b83a9f](https://www.jianshu.com/p/af8360b83a9f)
 
-[https://www.jianshu.com/p/576dbf44b2ae](https://www.jianshu.com/p/576dbf44b2ae)  
-
-
-
+[https://www.jianshu.com/p/576dbf44b2ae](https://www.jianshu.com/p/576dbf44b2ae)
 

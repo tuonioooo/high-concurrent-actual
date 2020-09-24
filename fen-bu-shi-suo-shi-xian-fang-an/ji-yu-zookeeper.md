@@ -1,12 +1,12 @@
 # 基于zookeeper
 
-## **引言** {#引言}
+## **引言** <a id="&#x5F15;&#x8A00;"></a>
 
 ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务，是Google的Chubby一个开源的实现，是Hadoop和Hbase的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。
 
 ZooKeeper的架构通过冗余服务实现高可用性。因此，如果第一次无应答，客户端就可以询问另一台ZooKeeper主机。ZooKeeper节点将它们的数据存储于一个分层的命名空间，非常类似于一个文件系统或一个前缀树结构。客户端可以在节点读写，从而以这种方式拥有一个共享的配置服务。更新是全序的。
 
-## **基于ZooKeeper分布式锁的流程** {#基于zookeeper分布式锁的流程}
+## **基于ZooKeeper分布式锁的流程** <a id="&#x57FA;&#x4E8E;zookeeper&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x7684;&#x6D41;&#x7A0B;"></a>
 
 * 在zookeeper指定节点（locks）下创建临时顺序节点node\_n
 * 获取locks下所有子节点children
@@ -14,7 +14,7 @@ ZooKeeper的架构通过冗余服务实现高可用性。因此，如果第一�
 * 判断本节点是不是第一个子节点，若是，则获取锁；若不是，则监听比该节点小的那个节点的删除事件
 * 若监听事件生效，则回到第二步重新进行判断，直到获取到锁
 
-## **具体实现** {#具体实现}
+## **具体实现** <a id="&#x5177;&#x4F53;&#x5B9E;&#x73B0;"></a>
 
 下面就具体使用java和zookeeper实现分布式锁，操作zookeeper使用的是apache提供的zookeeper的包。
 
@@ -23,7 +23,7 @@ ZooKeeper的架构通过冗余服务实现高可用性。因此，如果第一�
 
 **分布式锁**
 
-```
+```text
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 
@@ -205,7 +205,7 @@ public class DistributedLock implements Lock, Watcher {
 
 **测试代码**
 
-```
+```text
 public class Test {
     static int n = 500;
 
@@ -214,7 +214,7 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        
+
         Runnable runnable = new Runnable() {
             public void run() {
                 DistributedLock lock = null;
@@ -241,5 +241,5 @@ public class Test {
 
 **执行结果**
 
-![](/assets/import-zookeeper-01.png)
+![](../.gitbook/assets/import-zookeeper-01.png)
 
