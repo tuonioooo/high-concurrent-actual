@@ -17,6 +17,7 @@
   * [SpringBoot实现分布式事务](fen-bu-shi-shi-wu-jie-jue-fang-an/springbootshi-xian-fen-bu-shi-shi-wu.md)
   * [SpringCloudAlibaba - 阿里分布式事务Seata](fen-bu-shi-shi-wu-jie-jue-fang-an/seata.md)
   * [SpringCloudAlibaba - 阿里RocketMQ](fen-bu-shi-shi-wu-jie-jue-fang-an/springcloudalibaba-eli-rocketmq.md)
+  * [RabbitMQ消息队列的分布式事务解决方案](fen-bu-shi-shi-wu-jie-jue-fang-an/rabbitmq-xiao-xi-dui-lie-de-fen-bu-shi-shi-wu-jie-jue-fang-an.md)
 * [分布式系统校验解决方案](fen-bu-shi-xi-tong-xiao-yan-jie-jue-fang-an/README.md)
   * [分布式Session](fen-bu-shi-xi-tong-xiao-yan-jie-jue-fang-an/fen-bu-shi-session.md)
   * [JWT方式](fen-bu-shi-xi-tong-xiao-yan-jie-jue-fang-an/jwtfang-shi.md)
